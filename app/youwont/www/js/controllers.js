@@ -11,3 +11,17 @@ youwontController.controller('ResponsesCtrl', function ($scope) {
 youwontController.controller('VideoCtrl', function ($scope) {
   console.log("in VideoCtrl");
 });
+
+youwontController.controller("gridController", function($scope) {
+  // $scope.data = {};
+  $scope.data = [];
+  $scope.showData = function() {
+    for (var i = 0; i < 20; i++) {
+      $scope.data.push({
+        id: i,
+        src: "http://placehold.it/50x50",
+        text: "Some random text"
+      });
+    }
+  };
+});
