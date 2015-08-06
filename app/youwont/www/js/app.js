@@ -1,11 +1,28 @@
-// Ionic Starter App
+var youwont = angular.module('youwont', ['ionic', 'youwont.controllers', 'youwont.factory'])
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic'])
+youwont.config(function ($stateProvider, $urlRouterProvider) {
 
-.run(function($ionicPlatform) {
+  $urlRouterProvider.otherwise("/");
+
+  $stateProvider
+    .state('home', {
+      url : "/",
+      templateUrl: 'templates/challenge.html',
+      controller: "ChallengeCtrl"
+    })
+    .state('responses', {
+      url : "/responses",
+      templateUrl: 'templates/responses.html',
+      controller: "ResponsesCtrl"
+    })
+    .state('video', {
+      url : "/video",
+      templateUrl: 'templates/video.html',
+      controller: "VideoCtrl"
+    });
+});
+
+youwont.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -16,4 +33,5 @@ angular.module('starter', ['ionic'])
       StatusBar.styleDefault();
     }
   });
-})
+});
+
