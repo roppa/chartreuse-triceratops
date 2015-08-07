@@ -1,35 +1,18 @@
 <ion-content ng-controller="videoCtrl">
-<!-- Input form for title and description -->
-  <div class="list">
-    <label class="item item-input item-floating-label">
-      <span class="input-label">Title</span>
-      <input type="text" placeholder="Title">
-    </label>
-
-    <label class="item item-input item-floating-label">
-      <span class="input-label">Video Description</span>
-      <input type="text" placeholder="Video Description">
-    </label>
-  </div>
-
-  <div class="list card">
-  <!-- View for user avatar, name and timestamp -->
-    <div class="item item-avatar">
-      <img src="http://placehold.it/50x50">
-      <h2>Marvine Chi</h2>
-      <p>3 hours ago</p>
-    </div>
-    <!-- Content for video thumbnail to be placed -->
-    <div class="item item-body">
-      <img class="full-image" src="http://placehold.it/200x250" height="250px" width="auto">
-    </div>
-
-  </div>
-  <!-- Retake button -->
-  <div class="button-bar button-energized">
-    <button class="button button-small button-dark">
-      Retake
-    </button>
-  </div>
-
+  <!-- List -->
+  <ion-list ng-model="challenge">
+    <ion-item>
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Title</span>
+        <input type="text" placeholder="Title" ng-model="challenge.title">
+      </label>
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Video Description</span>
+        <input type="text" placeholder="Video Description" ng-model="challenge.description">
+      </label>
+      <div class="item item-body">
+        <img ng-src="{{urlForClipThumb(clip)}}" ng-click="showClip(clip)" />
+      </div>
+    </ion-item>
+  </ion-list>
 </ion-content>
