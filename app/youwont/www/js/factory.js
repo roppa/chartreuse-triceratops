@@ -20,6 +20,11 @@ facebookLoginFactory.factory('authLogin',function($state){
 		  	//user is successfully logged in and routed to the home page
 		    console.log("Authenticated successfully with payload:", authData);
 		  	
+
+		  	//if user does not exist in db - save
+		  	console.log('user name: ' + authData['facebook']['displayName'])
+		  	console.log('user id: ' + authData['facebook']['id'])
+
 		  	$state.go('home')
 		  }
 		});
@@ -29,6 +34,7 @@ facebookLoginFactory.factory('authLogin',function($state){
 		//routes to the login page and unauthorizes the user
 		
 		login.ref.unauth();
+		console.log('USER LOGGED OUT' + login.checkState())
 		$state.go('login')
 		
 	}
