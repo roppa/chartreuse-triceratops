@@ -1,4 +1,4 @@
-var youwontController = angular.module('youwont.controllers', ['FacebookLogin']);
+var youwontController = angular.module('youwont.controllers', ['FacebookLogin', 'ngCordova']);
 
 youwontController.controller('challengeCtrl', function ($scope) {
 
@@ -40,14 +40,52 @@ youwontController.controller('responsesCtrl', function ($scope) {
 
 });
 
-youwontController.controller('videoCtrl', function ($scope) {
-  $scope;
-});
-
 youwontController.controller('loginCtrl', function ($scope,authLogin) {
     $scope.logout = authLogin.logout;
     $scope.getAuthState = authLogin.checkState;
     $scope.login = authLogin.logUserIn;
 });
 
+youwontController.controller('videoCtrl', function ($scope, $ionicPlatform, $state, $cordovaCamera, $cordovaCapture, VideoService) {
+  
+  $scope.clip = '';
 
+  $scope.captureVideo = function() {
+
+    $state.go('video');
+
+    var options = { 
+      limit: 3, 
+      duration: 15
+    };
+
+    $ionicPlatform.ready(function() { //wrapper to ensure device is ready
+      $cordovaCapture
+        .captureVideo(options).then(function(videoData) {
+            VideoService.saveVideo(videoData).success(function(data) {
+              $scope.clip = data;
+              $scope.$apply();
+            }).error(function(data) {
+              console.log('ERROR: ' + data);
+            });
+          }, function(err) {
+            console.log(err);
+
+          });
+
+    }); //wrapper
+
+  };
+
+  $scope.urlForClipThumb = function(clipUrl) {
+    var name = clipUrl.substr(clipUrl.lastIndexOf('/') + 1);
+    var trueOrigin = cordova.file.dataDirectory + name;
+    var sliced = trueOrigin.slice(0, -4);
+    return sliced + '.png';
+  }
+   
+  $scope.showClip = function(clip) {
+    console.log('show clip: ' + clip);
+  }
+
+});
