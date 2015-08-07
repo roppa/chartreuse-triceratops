@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-  <title></title>
+  <title>Say you won't!</title>
   <link href="lib/ionic/css/ionic.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
   <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
@@ -22,26 +22,15 @@
     <script src="js/factory.js"></script>
   </head>
   <body ng-app="youwont">
-    <ion-pane>
-
-      <!-- Header with title -->
-      <ion-header-bar class="bar bar-header bar-assertive">
-        <h1 class="title">You Won't</h1>
-      </ion-header-bar>
-
-      <!-- content starts here -->
-      <ion-nav-view></ion-nav-view>
-
-      <!-- footer button menus -->
-      <ion-footer-bar align-title="left" class="bar-assertive">
-        <div class="button-bar">
-          <button class="button icon ion-ios-home" ui-sref="home"></button>
-          <button class="button icon ion-videocamera" ui-sref="video"></button>
-          <button class="button icon ion-ios-cog" ui-sref="responses"></button>
-        </div>
-        <!--  <h1 class="title">Title!</h1> -->
-      </ion-footer-bar>
-
-    </ion-pane>
+    <ion-header-bar class="bar bar-header bar-dark">
+      <h1 class="title">Say you won't!</h1>
+    </ion-header-bar>
+    <!-- content starts here -->
+    <ion-nav-view class="has-header"></ion-nav-view>
+    <ion-tabs class="tabs-dark tabs-icon-only">
+      <ion-tab ui-sref="home" title="Home" icon-on="ion-ios-home" icon-off="ion-ios-home-outline"></ion-tab>
+      <ion-tab ui-sref="video" title="Challenge" icon-on="ion-videocamera" icon-off="ion-videocamera"></ion-tab>
+      <ion-tab ui-sref="responses" title="Settings" icon-on="ion-ios-cog" icon-off="ion-ios-gear-outline"></ion-tab>
+    </ion-tabs>
   </body>
 </html>

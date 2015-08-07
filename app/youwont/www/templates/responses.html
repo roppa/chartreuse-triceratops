@@ -1,63 +1,31 @@
-<ion-content>
+<ion-content ng-controller"responsesCtrl">
   <!-- List -->
   <ion-list>
     <!-- Challenge Header -->
     <div class="item item-divider">
-        Mark's Challenge
+      {{challenge.title}}
     </div>
     <!-- Display Current Challenge -->
-      <ion-item>
-          <a class="item item-thumbnail-left" href="#">
-              <img src="cover.jpg" alt="chall">
-              <h2>Accent Challenge</h2>
-              <p>Speak to a stranger in your best American accent!</p>
-              <p> Total Responses: 4 </p>
-          </a>
-      </ion-item>
-    <!-- Challenge Header -->
-    <div class="item item-divider">
-        Responses to Mark's Challenge
-    </div>
-
-    <!-- Repeat over all Response -->
     <ion-item>
-        <div class="item item-thumbnail-left">
-            <img src="cover.jpg" alt="resp">
-            <h2>Accent Challenge</h2>
-            <p>Speak to a stranger in your best American accent!</p>
-            <p>Jon</p> 
-            <i class="icon ion-heart"> 10 </i>
-        </div>
-      </ion-item>
-   
-    <ion-item>
-        <div class="item item-thumbnail-left">
-            <img src="cover.jpg" alt="resp">
-            <h2>Accent Challenge</h2>
-            <p>Speak to a stranger in your best American accent!</p>
-            <p>Surya</p> 
-            <i class="icon ion-heart"> 7 </i>
-        </div>
+        <a class="item item-thumbnail-left" href="#">
+          <img src="http://placehold.it/50x50" alt="chall">
+          <h2>{{challenge.title}}</h2>
+          <p>{{challenge.description}}</p>
+          <p>{{challenge.people}}</p> 
+          <i class="icon ion-heart">{{challenge.likes}}</i>
+        </a>
     </ion-item>
-
-    <ion-item>
-        <div class="item item-thumbnail-left">
-            <img src="cover.jpg" alt="resp">
-            <h2>Accent Challenge</h2>
-            <p>Speak to a stranger in your best American accent!</p>
-            <p>Marvine</p> 
-            <i class="icon ion-heart"> 3 </i>
-        </div>
-    </ion-item>
-
-    <ion-item>
-        <div class="item item-thumbnail-left">
-            <img src="cover.jpg" alt="resp">
-            <h2>Accent Challenge</h2>
-            <p>Speak to a stranger in your best American accent!</p>
-            <p>Sarah</p> 
-            <i class="icon ion-heart"> 3 </i>
-        </div>
+    <!-- Responses divider -->
+    <div class="item item-divider">Responses to {{challenge.title}}</div>
+    <!-- Display responses -->
+    <ion-item ng-repeat="response in challenge.responses">
+      <a class="item item-thumbnail-left" href="#">
+        <img src="http://placehold.it/50x50" alt="chall">
+        <h2>{{response.title}}</h2>
+        <p>{{response.description}}</p>
+        <p>{{response.people}}</p> 
+        <i class="icon ion-heart">{{response.likes}}</i>
+      </a>
     </ion-item>
 
   </ion-list>

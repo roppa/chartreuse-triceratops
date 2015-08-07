@@ -1,15 +1,18 @@
-<ion-content ng-controller="gridController" ng-init="showData()">
+<ion-content ng-controller"challengeCtrl">
+  <!-- List -->
   <ion-list>
-    <ion-item>
-      <h1>Challenges</h1>
-      <div class="item item-thumbnail-left" ng-repeat="key in data">
-        <img ng-src="{{key.src}}">
-        <h2>Challenge Title</h2>
-        <h4>Description</h4>
-        <span><span class="ion-clock"></span>
-        <span class="ion-thumbsup"></span>
-        </span>
-      </div>
-    </ion-item>
+    <div ng-repeat="challenge in challenges">
+      <!-- Challenge Header -->
+      <div class="item item-divider">{{challenge.title}}</div>
+      <!-- Display Current Challenge -->
+      <ion-item>
+        <a ui-sref="responses" class="item item-thumbnail-left">
+          <img src="http://placehold.it/50x50" alt="chall">
+          <p>{{challenge.description}}</p>
+          <p>{{challenge.people}}</p> 
+          <i class="icon ion-heart">{{challenge.likes}}</i>
+        </a>
+      </ion-item>
+    </div>
   </ion-list>
 </ion-content>
