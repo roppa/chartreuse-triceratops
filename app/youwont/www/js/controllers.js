@@ -45,8 +45,9 @@ youwontController.controller('videoCtrl', function ($scope) {
 });
 
 youwontController.controller('loginCtrl', function ($scope,authLogin) {
-  console.log(authLogin.ref)
-  //$scope.login = authLogin.auth();
+    $scope.logout = authLogin.logout;
+    $scope.getAuthState = authLogin.checkState;
+    $scope.login = authLogin.logUserIn;
 });
 
 

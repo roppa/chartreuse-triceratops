@@ -25,8 +25,11 @@
     <script src="js/factory.js"></script>
   </head>
   <body ng-app="youwont">
-    <ion-header-bar class="bar bar-header bar-dark">
+    <ion-header-bar class="bar bar-header bar-dark" ng-controller="loginCtrl">
       <h1 class="title">Say you won't!</h1>
+      <button class="button" ng-click="logout()">
+             Logout
+      </button>
     </ion-header-bar>
     <!-- content starts here -->
     <ion-nav-view class="has-header"></ion-nav-view>

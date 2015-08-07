@@ -1,4 +1,4 @@
-var youwont = angular.module('youwont', ['ionic', 'youwont.controllers', 'youwont.factory'])
+var youwont = angular.module('youwont', ['ionic', 'youwont.controllers', 'youwont.factory','FacebookLogin'])
 
 
 youwont.config(function ($stateProvider, $urlRouterProvider) {
@@ -29,7 +29,7 @@ youwont.config(function ($stateProvider, $urlRouterProvider) {
 
 });
 
-youwont.run(function($ionicPlatform) {
+youwont.run(function($ionicPlatform,$rootScope,authLogin,$state) {
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
@@ -45,7 +45,23 @@ youwont.run(function($ionicPlatform) {
     if (window.StatusBar) {
       StatusBar.styleDefault();
     }
+
+      $rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams){
+       
+        if (toState.name !== 'login' && !authLogin.checkState()){
+            $state.go('login')
+            event.preventDefault();
+        }
+
+        if (toState.name === 'login' && authLogin.checkState()){
+            $state.go('home');
+            event.preventDefault();
+        }
+
+    });
   });
+
+
 });
 
 
