@@ -9,17 +9,17 @@ youwont.config(function ($stateProvider, $urlRouterProvider) {
     .state('home', {
       url : "/",
       templateUrl: 'templates/challenge.html',
-      controller: "ChallengeCtrl"
+      controller: "challengeCtrl"
     })
     .state('responses', {
       url : "/responses",
       templateUrl: 'templates/responses.html',
-      controller: "ResponsesCtrl"
+      controller: "responsesCtrl"
     })
     .state('video', {
       url : "/video",
       templateUrl: 'templates/video.html',
-      controller: "VideoCtrl"
+      controller: "videoCtrl"
     });
 });
 

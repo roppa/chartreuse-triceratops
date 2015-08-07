@@ -1,27 +1,45 @@
 var youwontController = angular.module('youwont.controllers', []);
 
-youwontController.controller('ChallengeCtrl', function ($scope) {
-  console.log("in ChallengeCtrl/home");
-});
+youwontController.controller('challengeCtrl', function ($scope) {
 
-youwontController.controller('ResponsesCtrl', function ($scope) {
-  console.log("in ResponsesCtrl");
-});
+  $scope.challenges = [];
 
-youwontController.controller('VideoCtrl', function ($scope) {
-  console.log("in VideoCtrl");
-});
-
-youwontController.controller("gridController", function($scope) {
-  // $scope.data = {};
-  $scope.data = [];
-  $scope.showData = function() {
-    for (var i = 0; i < 20; i++) {
-      $scope.data.push({
+  (function() {
+    for (var i = 0; i < 4; i++) {
+      $scope.challenges.push({
         id: i,
-        src: "http://placehold.it/50x50",
-        text: "Some random text"
+        title: "Title " + i,
+        img: "http://placehold.it/50x50",
+        description: "Walk to the corner shop naked",
+        likes: 3
       });
     }
+  })();
+
+});
+
+youwontController.controller('responsesCtrl', function ($scope) {
+
+  $scope.challenge = {
+    title: "Mark's challenge",
+    responses : []
   };
+
+  (function() {
+    for (var i = 0; i < 3; i++) {
+      $scope.challenge.responses.push({
+        id: i,
+        title: "Test title",
+        people: "Bob, Peter, Joanne",
+        img: "http://placehold.it/50x50",
+        description: "Walk to the corner shop naked",
+        likes: 3
+      });
+    }
+  })();
+
+});
+
+youwontController.controller('videoCtrl', function ($scope) {
+  $scope;
 });
