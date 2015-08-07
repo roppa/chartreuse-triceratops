@@ -1,9 +1,10 @@
-var youwontFactory = angular.module('youwont.factory', []);
+var youwontFactory = angular.module('youwont.factory', ['youwont.services']);
 //Facebook OAuth Login Factory
 var facebookLoginFactory = angular.module('FacebookLogin', []);
-facebookLoginFactory.factory('authLogin', function($state) {
+facebookLoginFactory.factory('authLogin', function($state, DatabaseService) {
   //URL to the sayiwont Firebase DB
   var appURL = "https://sayiwont.firebaseio.com";
+  // var appURL = "http://10.6.28.140:8100/#/login";
   var login = {};
   //reference to our Firebase DB
   login.ref = new Firebase(appURL);
@@ -14,7 +15,13 @@ facebookLoginFactory.factory('authLogin', function($state) {
         console.log("Login Failed!", error);
       } else {
         //user is successfully logged in and routed to the home page
-        console.log("Authenticated successfully with payload:", authData);
+        //we are adding the user to our database by calling addNewUser()
+        var facebookID = authData['facebook']['id'];
+        var userName = authData['facebook']['displayName'];
+        var userProfilePicture = authData['facebook']['profileImageURL'];
+        var uid = authData.uid;
+        DatabaseService.addNewUser(userName, userProfilePicture, facebookID, uid);
+        // console.log("Authenticated successfully with payload:", authData);
         $state.go('home')
       }
     });
