@@ -45,18 +45,23 @@ youwont.run(function($ionicPlatform,$rootScope,authLogin,$state) {
     if (window.StatusBar) {
       StatusBar.styleDefault();
     }
-  });
 
-  $rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams){
+      $rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams){
        
-        if (toState.name !== '/login' && !authLogin.checkState()){
-           $state.go('login')
-          event.preventDefault();
+        if (toState.name !== 'login' && !authLogin.checkState()){
+            $state.go('login')
+            event.preventDefault();
         }
-        
-       
+
+        if (toState.name === 'login' && authLogin.checkState()){
+            $state.go('home');
+            event.preventDefault();
+        }
 
     });
+  });
+
+
 });
 
 
