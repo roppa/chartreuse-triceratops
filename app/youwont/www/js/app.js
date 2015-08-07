@@ -20,7 +20,13 @@ youwont.config(function ($stateProvider, $urlRouterProvider) {
       url : "/video",
       templateUrl: 'templates/video.html',
       controller: "videoCtrl"
+    })
+    .state('login', {
+      url : "/login",
+      templateUrl: 'templates/login.html',
+      controller: "loginCtrl"
     });
+
 });
 
 youwont.run(function($ionicPlatform) {
