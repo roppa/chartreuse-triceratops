@@ -1,4 +1,4 @@
-var youwontController = angular.module('youwont.controllers', []);
+var youwontController = angular.module('youwont.controllers', ['FacebookLogin']);
 
 youwontController.controller('challengeCtrl', function ($scope) {
 
@@ -43,3 +43,10 @@ youwontController.controller('responsesCtrl', function ($scope) {
 youwontController.controller('videoCtrl', function ($scope) {
   $scope;
 });
+
+youwontController.controller('loginCtrl', function ($scope,authLogin) {
+  console.log(authLogin.ref)
+  //$scope.login = authLogin.auth();
+});
+
+
