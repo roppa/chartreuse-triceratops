@@ -1,21 +1,7 @@
-var youwontController = angular.module('youwont.controllers', ['FacebookLogin', 'ngCordova']);
+var youwontController = angular.module('youwont.controllers', ['FacebookLogin', 'Challenges', 'ngCordova']);
 
-youwontController.controller('challengeCtrl', function ($scope) {
-
-  $scope.challenges = [];
-
-  (function() {
-    for (var i = 0; i < 4; i++) {
-      $scope.challenges.push({
-        id: i,
-        title: "Title " + i,
-        img: "http://placehold.it/50x50",
-        description: "Walk to the corner shop naked",
-        likes: 3
-      });
-    }
-  })();
-
+youwontController.controller('challengeCtrl', function ($scope, challenges) {
+  $scope.challenges = challenges;
 });
 
 youwontController.controller('responsesCtrl', function ($scope) {
@@ -35,6 +21,7 @@ youwontController.controller('responsesCtrl', function ($scope) {
         description: "Walk to the corner shop naked",
         likes: 3
       });
+
     }
   })();
 
@@ -46,13 +33,16 @@ youwontController.controller('loginCtrl', function ($scope,authLogin) {
     $scope.login = authLogin.logUserIn;
 });
 
-youwontController.controller('videoCtrl', function ($scope, $ionicPlatform, $state, $cordovaCamera, $cordovaCapture, VideoService) {
+youwontController.controller('videoCtrl', function ($scope, challenges, $ionicPlatform, $state, $cordovaCamera, $cordovaCapture, VideoService) {
   
-  $scope.clip = '';
+  var newChallenge = $scope.challenge = {};
+  challenges.push(newChallenge);
+  $scope.challenge.clip = '';
+  $scope.challenge.status = '';
 
   $scope.captureVideo = function() {
 
-    $state.go('video');
+    // $state.go('video');
 
     var options = { 
       limit: 3, 
@@ -63,16 +53,16 @@ youwontController.controller('videoCtrl', function ($scope, $ionicPlatform, $sta
       $cordovaCapture
         .captureVideo(options).then(function(videoData) {
             VideoService.saveVideo(videoData).success(function(data) {
-              $scope.clip = data;
+              $scope.challenge.clip = data;
+              $scope.challenge.status = data;
+              $scope.challenge.img = $scope.urlForClipThumb(data);
               $scope.$apply();
             }).error(function(data) {
-              console.log('ERROR: ' + data);
+              $scope.challenge.status = data;
             });
           }, function(err) {
-            console.log(err);
-
+            $scope.challenge.status = err.message;
           });
-
     }); //wrapper
 
   };

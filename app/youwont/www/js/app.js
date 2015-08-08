@@ -1,4 +1,4 @@
-var youwont = angular.module('youwont', ['ionic', 'ngCordova', 'youwont.controllers', 'youwont.factory', 'youwont.services', 'FacebookLogin']);
+var youwont = angular.module('youwont', ['ionic', 'ngCordova', 'youwont.controllers', 'youwont.factory', 'youwont.services', 'FacebookLogin', 'Challenges']);
 
 youwont.config(function ($stateProvider, $urlRouterProvider) {
 
@@ -49,7 +49,7 @@ youwont.config(function ($stateProvider, $urlRouterProvider) {
 
 });
 
-youwont.run(function($ionicPlatform,$rootScope,authLogin,$state) {
+youwont.run(function($ionicPlatform, $rootScope, authLogin, $state) {
 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard

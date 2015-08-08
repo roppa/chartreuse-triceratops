@@ -1,4 +1,4 @@
-var youwont = angular.module('youwont', ['ionic', 'ngCordova', 'youwont.controllers', 'youwont.factory', 'youwont.services'])
+var youwont = angular.module('youwont', ['ionic', 'ngCordova', 'youwont.controllers', 'youwont.factory', 'youwont.services', 'FacebookLogin', 'Challenges']);
 
 youwont.config(function ($stateProvider, $urlRouterProvider) {
 
@@ -19,10 +19,16 @@ youwont.config(function ($stateProvider, $urlRouterProvider) {
       url : "/video",
       templateUrl: 'templates/video.html',
       controller: "videoCtrl"
+    })
+    .state('login', {
+      url : "/login",
+      templateUrl: 'templates/login.html',
+      controller: "loginCtrl"
     });
+
 });
 
-youwont.run(function($ionicPlatform) {
+youwont.run(function($ionicPlatform, $rootScope, authLogin, $state) {
 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -34,5 +40,21 @@ youwont.run(function($ionicPlatform) {
       StatusBar.hide();
       ionic.Platform.fullScreen();
     }
+
+    $rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams) {
+       
+      if (toState.name !== 'login' && !authLogin.checkState()){
+          $state.go('login')
+          event.preventDefault();
+      }
+
+      if (toState.name === 'login' && authLogin.checkState()){
+          $state.go('home');
+          event.preventDefault();
+      }
+
+    });
+
   });
+
 });

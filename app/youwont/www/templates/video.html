@@ -11,8 +11,10 @@
         <input type="text" placeholder="Video Description" ng-model="challenge.description">
       </label>
       <div class="item item-body">
-        <img ng-src="{{urlForClipThumb(clip)}}" ng-click="showClip(clip)" />
+        <img ng-src="{{urlForClipThumb(challenge.clip)}}" ng-click="showClip(challenge.clip)" />
       </div>
+      <p>{{challenge.status}}</p>
+      <button ng-click="captureVideo()">Take video</button>
     </ion-item>
   </ion-list>
 </ion-content>
