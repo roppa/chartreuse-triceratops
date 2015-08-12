@@ -35,9 +35,10 @@ youwontController.controller('loginCtrl', function ($scope,authLogin) {
 
 youwontController.controller('videoCtrl', function ($scope, challenges, $ionicPlatform, $state, $cordovaCamera, $cordovaCapture, VideoService,DatabaseService,authLogin) {
   
-  var newChallenge = $scope.challenge = {};
 
-  challenges.push(newChallenge);
+  var $scope.challenge = {};
+  challenges.push($scope.challenge);
+
   $scope.challenge.clip = '';
   $scope.challenge.status = '';
   $scope.challenge.title = '';
@@ -47,8 +48,6 @@ youwontController.controller('videoCtrl', function ($scope, challenges, $ionicPl
 
   $scope.captureVideo = function() {
 
-    // $state.go('video');
-
     var options = { 
       limit: 3, 
       duration: 15
@@ -57,30 +56,27 @@ youwontController.controller('videoCtrl', function ($scope, challenges, $ionicPl
     $ionicPlatform.ready(function() { //wrapper to ensure device is ready
       $cordovaCapture
         .captureVideo(options).then(function(videoData) {
-            VideoService.saveVideo(videoData).success(function(data) {
-              $scope.challenge.clip = data;
-              $scope.challenge.status = data;
-              $scope.challenge.img = $scope.urlForClipThumb(data);
-              $scope.$apply();
-            }).error(function(data) {
-              $scope.challenge.status = data;
+            VideoService.saveVideo(videoData)
+            .success(function(data) {
+                $scope.challenge.clip = data;
+                $scope.challenge.status = data;
+                $scope.challenge.img = $scope.generateThumb(data);
+                $scope.$apply();
+              }).error(function(data) {
+                $scope.challenge.status = data;
+              });
+            }, function(err) {
+              $scope.challenge.status = err.message;
             });
-          }, function(err) {
-            $scope.challenge.status = err.message;
-          });
     }); //wrapper
 
   };
 
-  $scope.urlForClipThumb = function(clipUrl) {
+  $scope.generateThumb = function(clipUrl) {
     var name = clipUrl.substr(clipUrl.lastIndexOf('/') + 1);
     var trueOrigin = cordova.file.dataDirectory + name;
     var sliced = trueOrigin.slice(0, -4);
     return sliced + '.png';
-  }
-   
-  $scope.showClip = function(clip) {
-    console.log('show clip: ' + clip);
   }
 
   $scope.testChallenge = function(){
