@@ -4,7 +4,7 @@
   <div class="item item-divider">Friends</div>
     <div ng-repeat="friend in friends">
       <ion-item>
-        <a href="#" ng-click='addFriend()'><p> {{friend.name}} </p></a>
+        <a href="#" ng-click='addFriend(friend)'><p> {{friend.name}} </p></a>
       </ion-item>
     </div>
   </ion-list>

@@ -37,7 +37,7 @@ youwontController.controller('friendsCtrl', function ($scope,authLogin,DatabaseS
     DatabaseService.getFriends(function(friends){
       $scope.friends = friends;
     });
-   
+   $scope.addFriend = DatabaseService.addFriend;
 });
 
 youwontController.controller('videoCtrl', function ($scope, challenges, $ionicPlatform, $state, $cordovaCamera, $cordovaCapture, VideoService,DatabaseService,authLogin) {
