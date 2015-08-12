@@ -19,7 +19,7 @@
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
-    <script src="phonegap.js"></script>
+   
 
     <!-- your app's js -->
     <script src="js/app.js"></script>
@@ -29,11 +29,9 @@
   </head>
   <body ng-app="youwont">
     <ion-header-bar class="bar bar-header bar-dark" ng-controller="loginCtrl">
-     
-           <button class="button" ng-click="doSomething()" icon-on='ion-person'>
-             
-           </button>
-     
+       <a ui-sref="friends"><button class="button icon ion-person">
+        Friends
+      </button></a>
       <h1 class="title">Say I Won't?!</h1>
       <button class="button" ng-click="logout()">
              Logout
