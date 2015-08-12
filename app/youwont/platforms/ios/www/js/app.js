@@ -8,22 +8,43 @@ youwont.config(function ($stateProvider, $urlRouterProvider) {
     .state('home', {
       url : "/",
       templateUrl: 'templates/challenge.html',
-      controller: "challengeCtrl"
+      controller: "challengeCtrl",
+      onEnter: function($state,authLogin){
+        if (!authLogin.checkState()){
+          $state.go('login')
+        }
+      }
     })
     .state('responses', {
       url : "/responses",
       templateUrl: 'templates/responses.html',
-      controller: "responsesCtrl"
+      controller: "responsesCtrl",
+      onEnter: function($state,authLogin){
+        if (!authLogin.checkState()){
+          $state.go('login')
+        }
+      }
     })
     .state('video', {
       url : "/video",
       templateUrl: 'templates/video.html',
-      controller: "videoCtrl"
+      controller: "videoCtrl",
+      onEnter: function($state,authLogin){
+        if (!authLogin.checkState()){
+          $state.go('login')
+        }
+      }
     })
     .state('login', {
       url : "/login",
       templateUrl: 'templates/login.html',
-      controller: "loginCtrl"
+      controller: "loginCtrl",
+      onEnter: function($state,authLogin){
+        if (authLogin.checkState()){
+          $state.go('home')
+        }
+      }
+      
     });
 
 });
@@ -42,13 +63,14 @@ youwont.run(function($ionicPlatform, $rootScope, authLogin, $state) {
     }
 
     $rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams) {
-       
+       console.log('state changed')
       if (toState.name !== 'login' && !authLogin.checkState()){
           $state.go('login')
           event.preventDefault();
       }
 
       if (toState.name === 'login' && authLogin.checkState()){
+        console.log('already logged in')
           $state.go('home');
           event.preventDefault();
       }

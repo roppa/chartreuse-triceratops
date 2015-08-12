@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-  <title>Say you won't!</title>
+  <title>Say I Won't!?</title>
 
   <link href="lib/ionic/css/ionic.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
@@ -19,6 +19,7 @@
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
+    <script src="phonegap.js"></script>
 
     <!-- your app's js -->
     <script src="js/app.js"></script>
@@ -28,7 +29,12 @@
   </head>
   <body ng-app="youwont" class="platform-ios platform-cordova platform-webview">
     <ion-header-bar class="bar bar-header bar-dark" ng-controller="loginCtrl">
-      <h1 class="title">Say you won't!</h1>
+      <ion-nav-buttons side="primary">
+           <button class="button" ng-click="doSomething()" icon-on='ion-person'>
+             
+           </button>
+      </ion-nav-buttons>
+      <h1 class="title">Say I Won't?!</h1>
       <button class="button" ng-click="logout()">
              Logout
       </button>

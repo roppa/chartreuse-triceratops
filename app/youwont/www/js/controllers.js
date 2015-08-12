@@ -1,4 +1,4 @@
-var youwontController = angular.module('youwont.controllers', ['FacebookLogin', 'Challenges', 'ngCordova']);
+var youwontController = angular.module('youwont.controllers', ['FacebookLogin', 'Challenges', 'ngCordova','youwont.services']);
 
 youwontController.controller('challengeCtrl', function ($scope, challenges) {
   $scope.challenges = challenges;
@@ -33,12 +33,17 @@ youwontController.controller('loginCtrl', function ($scope,authLogin) {
     $scope.login = authLogin.logUserIn;
 });
 
-youwontController.controller('videoCtrl', function ($scope, challenges, $ionicPlatform, $state, $cordovaCamera, $cordovaCapture, VideoService) {
+youwontController.controller('videoCtrl', function ($scope, challenges, $ionicPlatform, $state, $cordovaCamera, $cordovaCapture, VideoService,DatabaseService,authLogin) {
   
   var newChallenge = $scope.challenge = {};
+
   challenges.push(newChallenge);
   $scope.challenge.clip = '';
   $scope.challenge.status = '';
+  $scope.challenge.title = '';
+  $scope.challenge.description = '';
+  $scope.user = authLogin.ref.getAuth();
+  $scope.user = $scope.user.uid
 
   $scope.captureVideo = function() {
 
@@ -76,6 +81,16 @@ youwontController.controller('videoCtrl', function ($scope, challenges, $ionicPl
    
   $scope.showClip = function(clip) {
     console.log('show clip: ' + clip);
+  }
+
+  $scope.testChallenge = function(){
+    //console.log('title: ' + $scope.challenge.title);
+    var title = $scope.challenge.title;
+    var description = $scope.challenge.description;
+    var user = $scope.user;
+    console.log('usr: ' + user)
+    //console.log('description: ' + $scope.challenge.description)
+    DatabaseService.addNewChallenge(title,description,user);
   }
 
 });

@@ -6,14 +6,24 @@ facebookLoginFactory.factory('authLogin', function($state, DatabaseService) {
   var appURL = "https://sayiwont.firebaseio.com";
   // var appURL = "http://10.6.28.140:8100/#/login";
   var login = {};
+
+  //track current logged in user
+  login.loggedInUser = null;
+
   //reference to our Firebase DB
   login.ref = new Firebase(appURL);
   //function to perform OAuth login with FB
   login.logUserIn = function() {
+    alert('trying our best')
     login.ref.authWithOAuthPopup("facebook", function(error, authData) {
+        
       if (error) {
+        
         console.log("Login Failed!", error);
       } else {
+        
+        //set to auth to give us all the properties of the auth data
+        
         //user is successfully logged in and routed to the home page
         //we are adding the user to our database by calling addNewUser()
         var facebookID = authData['facebook']['id'];
@@ -22,15 +32,19 @@ facebookLoginFactory.factory('authLogin', function($state, DatabaseService) {
         var uid = authData.uid;
         DatabaseService.addNewUser(userName, userProfilePicture, facebookID, uid);
         // console.log("Authenticated successfully with payload:", authData);
+       
         $state.go('home')
+      
       }
     });
   }
 	
 	login.logout = function(){
 		//routes to the login page and unauthorizes the user
+    
 		login.ref.unauth();
 		console.log('USER LOGGED OUT' + login.checkState())
+    login.loggedInUser = null;
 		$state.go('login');
 	}
 
