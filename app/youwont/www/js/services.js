@@ -87,6 +87,7 @@ angular.module('youwont.services', [])
   })
   .service("DatabaseService", function() {
     var db = {};
+    db.ref = new Firebase("https://sayiwont.firebaseio.com/"); 
     db.addNewUser = function(userName, userProfilePicture, facebookID, uid) {
       //Adding new user to our database 
       var ref = new Firebase("https://sayiwont.firebaseio.com/");    
@@ -98,5 +99,22 @@ angular.module('youwont.services', [])
         });    
       }
     };
+    db.addNewChallenge = function(challengeName,challengeDescription,user){
+      alert(user)
+      if (challengeName && challengeDescription && user){
+        db.ref.child("challenges").child(challengeName).set({
+          challengeName:challengeName,
+          challengeDescription:challengeDescription,
+          user:user
+        });
+      } else {
+        console.error('addNewChallenge is missing params')
+      }
+
+    };
+
+    db.addFriend = function(user,friend){
+
+    }
     return db;
   });
