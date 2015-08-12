@@ -33,10 +33,17 @@ youwontController.controller('loginCtrl', function ($scope,authLogin) {
     $scope.login = authLogin.logUserIn;
 });
 
+youwontController.controller('friendsCtrl', function ($scope,authLogin,DatabaseService) {
+    DatabaseService.getFriends(function(friends){
+      $scope.friends = friends;
+    });
+   $scope.addFriend = DatabaseService.addFriend;
+});
+
 youwontController.controller('videoCtrl', function ($scope, challenges, $ionicPlatform, $state, $cordovaCamera, $cordovaCapture, VideoService,DatabaseService,authLogin) {
   
 
-  var $scope.challenge = {};
+  $scope.challenge = {};
   challenges.push($scope.challenge);
 
   $scope.challenge.clip = '';
